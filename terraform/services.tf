@@ -27,7 +27,7 @@ resource "aws_apprunner_service" "service" {
   instance_configuration {
     instance_role_arn = aws_iam_role.apprunner-instance-role.arn
   }
-  depends_on = [aws_iam_role.apprunner-service-role, aws_db_instance.db, aws_route_table.private-route-table, null_resource.petclinic_springboot]
+  depends_on = [aws_iam_role.apprunner-service-role, aws_db_instance.db, aws_route_table.private-route-table]
 }
 
 output "apprunner_service_url" {
