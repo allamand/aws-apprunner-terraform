@@ -23,7 +23,7 @@ terraform {
  
   backend "s3" {
     acl                  = "bucket-owner-full-control"
-    bucket               = "sallaman-s3-reviewapps-terraform-petclinic-state-files"
+    bucket               = "sallaman-s3-reviewapps-terraform-state-files"
     encrypt              = true
     workspace_key_prefix = "__KEY_PREFIX_NAME__"
     key                  = "__KEY_NAME__.tfstate"
