@@ -53,7 +53,7 @@ jobs:
       - name: Terraform Apply
         id: Apply
         if: github.event_name == 'pull_request'
-        run: terraform apply -auto-approve -var 'name=${{ github.event.repository.name }}' -var 'stage=pr-${{ github.event.number }}' -var 'branch=${{ github.head_ref }}'
+        run: terraform apply -auto-approve
         working-directory: terraform
         env:
           TF_WORKSPACE: ${{ github.event.repository.name }}-pr-${{ github.event.number }}
