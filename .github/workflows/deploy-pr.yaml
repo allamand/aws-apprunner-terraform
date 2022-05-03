@@ -33,6 +33,7 @@ jobs:
           cd ./terraform
           sed -i -e "s/__KEY_PREFIX_NAME__/$KEY_PREFIX_NAME/g" ./provider.tf
           sed -i -e "s/__KEY_NAME__/$KEY_NAME/g" ./provider.tf
+          cat ./provider.tf
           cd ..
 
       - name: Setup Terraform
