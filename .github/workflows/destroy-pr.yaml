@@ -52,7 +52,7 @@ jobs:
       - name: Terraform Destroy
         id: Destroy
         if: github.event_name == 'pull_request'
-        run: terraform apply -destroy -auto-approve -var 'name=${{ github.event.repository.name }}' -var 'stage=pr-${{ github.event.number }}' -var 'branch=${{ github.head_ref }}'
+        run: terraform apply -destroy -auto-approve
         working-directory: terraform
         env:
           TF_WORKSPACE: ${{ github.event.repository.name }}-pr-${{ github.event.number }}
