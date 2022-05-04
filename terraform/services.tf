@@ -4,7 +4,7 @@
 
 resource "aws_apprunner_service" "service" {
   auto_scaling_configuration_arn = aws_apprunner_auto_scaling_configuration_version.auto-scaling-config.arn
-  service_name                   = "apprunner-petclinic"
+  service_name                   = "apprunner-petclinic-${var.tf_branch}"
   source_configuration {
     authentication_configuration {
       access_role_arn = aws_iam_role.apprunner-service-role.arn

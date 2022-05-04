@@ -81,12 +81,12 @@ resource "aws_iam_role_policy_attachment" "codebuild-attach" {
 # Codebuild project
 
 resource "aws_s3_bucket" "cache" {
-  bucket = var.codebuild_cache_bucket_name # workaround from https://github.com/hashicorp/terraform-provider-aws/issues/10195
+  bucket = "${var.stack}-${var.codebuild_cache_bucket_name}" # workaround from https://github.com/hashicorp/terraform-provider-aws/issues/10195
   #acl    = "private"
   force_destroy = true
 }
 resource "aws_s3_bucket_acl" "cache" {
-  bucket = var.codebuild_cache_bucket_name # workaround from https://github.com/hashicorp/terraform-provider-aws/issues/10195
+  bucket = "${var.stack}-${var.codebuild_cache_bucket_name}" # workaround from https://github.com/hashicorp/terraform-provider-aws/issues/10195
   acl    = "private"
 }
 
@@ -95,14 +95,14 @@ resource "aws_codebuild_project" "codebuild" {
     aws_codecommit_repository.source_repo,
     aws_ecr_repository.petclinic
   ]
-  name         = "codebuild-${var.source_repo_name}-${var.source_repo_branch}"
+  name         = "codebuild-${var.source_repo_name}-${var.source_repo_branch}-${var.stack}"
   service_role = aws_iam_role.codebuild_role.arn
   artifacts {
     type = "CODEPIPELINE"
   }
   cache {
     type     = "S3"
-    location = var.codebuild_cache_bucket_name
+    location = "${var.stack}-${var.codebuild_cache_bucket_name}"
   }
   environment {
     compute_type                = "BUILD_GENERAL1_MEDIUM"

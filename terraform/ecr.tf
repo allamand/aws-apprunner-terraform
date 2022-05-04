@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "petclinic" {
-  name                 = var.image_repo_name
+  name                 = "${var.image_repo_name}-${var.stack}"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
@@ -7,10 +7,10 @@ resource "aws_ecr_repository" "petclinic" {
   }
 }
 data "aws_ecr_repository" "image_repo" {
-  name = var.image_repo_name
+  name = "${var.image_repo_name}-${var.stack}"
 
-depends_on = [
-aws_ecr_repository.petclinic
-]
+  depends_on = [
+    aws_ecr_repository.petclinic
+  ]
 }
 

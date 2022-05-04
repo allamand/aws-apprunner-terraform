@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_iam_role" "apprunner-service-role" {
-  name               = "${var.apprunner-service-role}AppRunnerECRAccessRole"
+  name               = "${var.apprunner-service-role}AppRunnerECRAccessRole-${var.tf_branch}"
   path               = "/"
   assume_role_policy = data.aws_iam_policy_document.apprunner-service-assume-policy.json
 }
@@ -26,13 +26,13 @@ resource "aws_iam_role_policy_attachment" "apprunner-service-role-attachment" {
 
 
 resource "aws_iam_role" "apprunner-instance-role" {
-  name = "${var.apprunner-service-role}AppRunnerInstanceRole"
+  name = "${var.apprunner-service-role}AppRunnerInstanceRole-${var.tf_branch}"
   path = "/"
   assume_role_policy = data.aws_iam_policy_document.apprunner-instance-assume-policy.json
 }
 
 resource "aws_iam_policy" "Apprunner-policy" {
-  name = "Apprunner-getSSM"
+  name = "Apprunner-getSSM-${var.tf_branch}"
   policy = data.aws_iam_policy_document.apprunner-instance-role-policy.json
 }
 
