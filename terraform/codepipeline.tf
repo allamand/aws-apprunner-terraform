@@ -85,7 +85,7 @@ resource "aws_codepipeline" "pipeline" {
     aws_codebuild_project.codebuild,
     aws_codecommit_repository.source_repo
   ]
-  name     = "${var.source_repo_name}-${var.source_repo_branch}-Pipeline"
+  name     = "${var.source_repo_name}-${var.source_repo_branch}-Pipeline-${var.stack}"
   role_arn = aws_iam_role.codepipeline_role.arn
   artifact_store {
     location = aws_s3_bucket.artifact_bucket.bucket
@@ -103,7 +103,7 @@ resource "aws_codepipeline" "pipeline" {
       output_artifacts = ["SourceOutput"]
       run_order        = 1
       configuration = {
-        RepositoryName       = var.source_repo_name
+        RepositoryName       = "${var.source_repo_name}-${var.stack}"
         BranchName           = var.source_repo_branch
         PollForSourceChanges = "false"
       }

@@ -5,7 +5,7 @@
 # Code Commit repo
 
 resource "aws_codecommit_repository" "source_repo" {
-  repository_name = var.source_repo_name
+  repository_name = "${var.source_repo_name}-${var.stack}"
   description     = "This is the app source repository"
 }
 
@@ -77,7 +77,7 @@ resource "aws_cloudwatch_event_target" "target_pipeline" {
   rule      = aws_cloudwatch_event_rule.trigger_rule.name
   arn       = aws_codepipeline.pipeline.arn
   role_arn  = aws_iam_role.trigger_role.arn
-  target_id = "${var.source_repo_name}-${var.source_repo_branch}-pipeline"
+  target_id = "${var.source_repo_name}-${var.source_repo_branch}-pipeline-${var.stack}"
 }
 
 # Outputs

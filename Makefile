@@ -27,8 +27,9 @@ init:
 	cd terraform && terraform init
 
 apply:
-	cd terraform && terraform apply
+	cd terraform && terraform apply -auto-approve -var 'tf_branch=$(shell git rev-parse --abbrev-ref HEAD)'
 
 
 destroy:
-	cd terraform && terraform destroy
+	#cd terraform && terraform destroy -auto-approve -var 'tf_branch=$(shell git rev-parse --abbrev-ref HEAD)' -target=aws_apprunner_service.service
+	cd terraform && terraform destroy -auto-approve -var 'tf_branch=$(shell git rev-parse --abbrev-ref HEAD)'

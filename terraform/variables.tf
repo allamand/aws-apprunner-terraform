@@ -6,9 +6,9 @@ variable "aws_region" {
   description = "The AWS region to create things in."
 }
 
-variable "aws_profile" {
-  description = "AWS profile"
-}
+# variable "aws_profile" {
+#   description = "AWS profile"
+# }
 
 variable "stack" {
   description = "Name of the stack."
@@ -25,9 +25,9 @@ variable "az_count" {
   default     = "2"
 }
 
-variable "aws_ecr" {
-  description = "AWS ECR "
-}
+# variable "aws_ecr" {
+#   description = "AWS ECR "
+# }
 
 variable "family" {
   description = "Family of the Task Definition"
@@ -94,6 +94,9 @@ variable "source_repo_branch" {
   type        = string
 }
 
+variable "tf_branch" {
+  description = "(Required) Branch name on GitHub for This Terraform module"
+}
 
 # Image repo name for ECR
 
@@ -110,10 +113,11 @@ variable "apprunner-service-role" {
 variable "codebuild_cache_bucket_name" {
   description = "Bucketname to use for storing codebuild cache artifacts"
 }
-variable "codecommit_username" {
-  description = "Codecommit user name for config and push orperation"
-}
-variable "codecommit_email" {
-  description = "Codecommit email for git push operation"
-}
+
+# variable "codecommit_username" {
+#   description = "Codecommit user name for config and push orperation"
+# }
+# variable "codecommit_email" {
+#   description = "Codecommit email for git push operation"
+# }
 
