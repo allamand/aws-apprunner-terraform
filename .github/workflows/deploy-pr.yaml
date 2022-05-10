@@ -49,7 +49,7 @@ jobs:
         run: terraform workspace select $workspace || terraform workspace new $workspace
         working-directory: terraform
         env:
-          workspace: $KEY_PREFIX_NAME-pr-$KEY_NAME
+          workspace: ${{ env.KEY_PREFIX_NAME }}-pr-${{ env.KEY_NAME }}
 
       - name: Terraform Apply
         id: Apply
@@ -57,4 +57,4 @@ jobs:
         run: terraform apply -auto-approve -var 'tf_branch=${{ github.head_ref }}'
         working-directory: terraform
         env:
-          TF_WORKSPACE: $KEY_PREFIX_NAME-pr-$KEY_NAME
+          TF_WORKSPACE: ${{ env.KEY_PREFIX_NAME }}-pr-${{ env.KEY_NAME }}

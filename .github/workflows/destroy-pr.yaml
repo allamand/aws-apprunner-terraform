@@ -46,8 +46,6 @@ jobs:
       - name: Terraform Init
         run: terraform init
         working-directory: terraform
-        env:
-          TF_WORKSPACE: $KEY_PREFIX_NAME-pr-$KEY_NAME
 
       - name: Terraform Destroy
         id: Destroy
@@ -55,4 +53,4 @@ jobs:
         run: terraform apply -destroy -auto-approve -var 'tf_branch=${{ github.head_ref }}'
         working-directory: terraform
         env:
-          TF_WORKSPACE: $KEY_PREFIX_NAME-pr-$KEY_NAME
+          TF_WORKSPACE: ${{ env.KEY_PREFIX_NAME }}-pr-${{ env.KEY_NAME }}

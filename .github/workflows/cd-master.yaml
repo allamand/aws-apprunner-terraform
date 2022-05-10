@@ -60,7 +60,8 @@ jobs:
 
       - name: Terraform Apply
         id: Apply
-        run: terraform apply -destroy -auto-approve -var 'tf_branch=master'
+        run: terraform apply -auto-approve -var 'tf_branch=master'
+        #run: terraform apply -destroy -auto-approve -var 'tf_branch=master'        
         working-directory: terraform
         env:
-          TF_WORKSPACE: $KEY_PREFIX_NAME-$KEY_NAME
+          TF_WORKSPACE: ${{ env.KEY_PREFIX_NAME }}-${{ env.KEY_NAME }}
