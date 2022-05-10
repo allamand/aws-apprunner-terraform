@@ -1,22 +1,27 @@
-name: Destroy review application on Amazon Elastic Beanstalk
+name: 'cd-master'
 
-on:
+on: 
   pull_request:
-    types: [closed, unlabeled]
+    types: [closed]
+    branches:
+      - master
+  push:
+    branches:
+      - master
 
 env:
   TF_IN_AUTOMATION: true
 
 jobs:
-  terraform-destroy:
-    name: Destroy
+  terraform-apply:
+    name: Apply
     permissions:
       id-token: write
       contents: read
     runs-on: ubuntu-latest
     env:
       KEY_PREFIX_NAME: ${{ github.event.repository.name }}
-      KEY_NAME: ${{ github.event.number }}
+      KEY_NAME: master
 
     steps:
       - name: Checkout
@@ -26,7 +31,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          role-duration-seconds: 900
+          role-duration-seconds: 1800
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
       - name: Adapt AWS Terraform Backend
@@ -46,13 +51,17 @@ jobs:
       - name: Terraform Init
         run: terraform init
         working-directory: terraform
-        env:
-          TF_WORKSPACE: $KEY_PREFIX_NAME-pr-$KEY_NAME
 
-      - name: Terraform Destroy
-        id: Destroy
-        if: github.event_name == 'pull_request'
-        run: terraform apply -destroy -auto-approve -var 'tf_branch=${{ github.head_ref }}'
+      - name: Terraform new Workspace
+        run: terraform workspace select $workspace || terraform workspace new $workspace
         working-directory: terraform
         env:
-          TF_WORKSPACE: $KEY_PREFIX_NAME-pr-$KEY_NAME
+          workspace: $KEY_PREFIX_NAME-$KEY_NAME
+
+      - name: Terraform Apply
+        id: Apply
+        if: github.event_name == 'pull_request'
+        run: terraform apply -auto-approve -var 'tf_branch=${{ github.head_ref }}'
+        working-directory: terraform
+        env:
+          TF_WORKSPACE: $KEY_PREFIX_NAME-$KEY_NAME
