@@ -5,15 +5,16 @@ on:
     types: [closed]
     branches:
       - master
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
 
 env:
   TF_IN_AUTOMATION: true
 
 jobs:
   terraform-apply:
+    if: github.event.pull_request.merged == 'true'
     name: Apply
     permissions:
       id-token: write
