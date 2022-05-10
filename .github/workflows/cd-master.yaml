@@ -40,7 +40,9 @@ jobs:
           cd ./terraform
           sed -i -e "s/__KEY_PREFIX_NAME__/$KEY_PREFIX_NAME/g" ./provider.tf
           sed -i -e "s/__KEY_NAME__/$KEY_NAME/g" ./provider.tf
+          sed -i -e "s/__KEY_NAME__/$KEY_NAME/g" ./terraform.tfvars          
           cat ./provider.tf
+          cat ./terraform.tfvars 
           cd ..
 
       - name: Setup Terraform
@@ -60,8 +62,8 @@ jobs:
 
       - name: Terraform Apply
         id: Apply
-        #run: terraform apply -auto-approve -var 'tf_branch=master'
-        run: terraform apply -destroy -auto-approve -var 'tf_branch=master'        
+        run: terraform apply -auto-approve -var 'tf_branch=master'
+        #run: terraform apply -destroy -auto-approve -var 'tf_branch=master'
         working-directory: terraform
         env:
           TF_WORKSPACE: ${{ env.KEY_PREFIX_NAME }}-${{ env.KEY_NAME }}

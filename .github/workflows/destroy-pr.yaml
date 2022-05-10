@@ -1,4 +1,4 @@
-name: Destroy review application on Amazon Elastic Beanstalk
+name: Destroy review application on Amazon App Runner
 
 on:
   pull_request:
@@ -35,7 +35,9 @@ jobs:
           cd ./terraform
           sed -i -e "s/__KEY_PREFIX_NAME__/$KEY_PREFIX_NAME/g" ./provider.tf
           sed -i -e "s/__KEY_NAME__/$KEY_NAME/g" ./provider.tf
+          sed -i -e "s/__KEY_NAME__/$KEY_NAME/g" ./terraform.tfvars          
           cat ./provider.tf
+          cat ./terraform.tfvars 
           cd ..
 
       - name: Setup Terraform

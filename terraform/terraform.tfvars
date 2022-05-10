@@ -1,6 +1,6 @@
 codebuild_cache_bucket_name="cache-codebuild"
 aws_region="us-east-1"
-stack="apprunner-workshop-action"
+stack="apprunner-workshop-__KEY_NAME__"
 #aws_ecr="petclinic-${var.tf_branch}"
 #aws_profile="default"
 source_repo_name="petclinic"
