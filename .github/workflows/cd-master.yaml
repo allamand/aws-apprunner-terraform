@@ -60,7 +60,7 @@ jobs:
 
       - name: Terraform Apply
         id: Apply
-        run: terraform apply -auto-approve -var 'tf_branch=${{ github.head_ref }}'
+        run: terraform apply -auto-approve -var 'tf_branch=master'
         working-directory: terraform
         env:
           TF_WORKSPACE: $KEY_PREFIX_NAME-$KEY_NAME
