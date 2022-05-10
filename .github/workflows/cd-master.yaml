@@ -56,7 +56,7 @@ jobs:
         run: terraform workspace select $workspace || terraform workspace new $workspace
         working-directory: terraform
         env:
-          workspace: $KEY_PREFIX_NAME-$KEY_NAME
+          workspace: ${{ env.KEY_PREFIX_NAME }}-${{ env.KEY_NAME }}
 
       - name: Terraform Apply
         id: Apply
